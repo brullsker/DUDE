@@ -6,9 +6,21 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" KeyDown="Grid_KeyDown">
 
     <Grid>
-
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="12">
+            <StackPanel Orientation="Horizontal">
+                <RadioButton x:Name="DecRB" Content="Decimal number" Margin="0,0,6,0" IsChecked="True" Checked="TypeModeRBChecked"/>
+                <RadioButton x:Name="DualRB" Content="Dual number" Margin="6,0,0,0" Checked="TypeModeRBChecked"/>
+            </StackPanel>
+            <TextBox Header="Input" InputScope="Number" PlaceholderText="Number input" x:Name="InputTBx" Margin="0,12,0,0" TextChanged="InputTBx_TextChanged" KeyDown="InputTBx_KeyDown"/>
+            <TextBlock Text="False input type" Foreground="Red" Style="{StaticResource CaptionTextBlockStyle}" x:Name="InputFailureTB" Visibility="Collapsed"/>
+            <TextBlock Text="Dual number too long" Foreground="Red" Style="{StaticResource CaptionTextBlockStyle}" x:Name="TooLongTB" Visibility="Collapsed"/>
+            <TextBlock Text="Dual number too short" Foreground="Red" Style="{StaticResource CaptionTextBlockStyle}" x:Name="TooShortTB" Visibility="Collapsed"/>
+            <Button HorizontalAlignment="Stretch" Content="Convert" x:Name="ConvertBtn" Margin="0,12,0,0" Click="ConvertBtn_Click" IsEnabled="False"/>
+            <TextBlock Text="Output" Margin="0,12,0,6"/>
+            <TextBlock x:Name="OutputTB" Text="Nothing to show" Style="{StaticResource BaseTextBlockStyle}" IsTextSelectionEnabled="True"/>
+        </StackPanel>
     </Grid>
 </Page>
