@@ -5,22 +5,43 @@
     xmlns:local="using:DUDE_Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" KeyDown="Grid_KeyDown">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" KeyDown="Grid_KeyDown" x:Name="MPage">
 
     <Grid>
-        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="12">
-            <StackPanel Orientation="Horizontal">
-                <RadioButton x:Name="DecRB" Content="Decimal number" Margin="0,0,6,0" IsChecked="True" Checked="TypeModeRBChecked"/>
-                <RadioButton x:Name="DualRB" Content="Dual number" Margin="6,0,0,0" Checked="TypeModeRBChecked"/>
+        <Grid Margin="40,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="12" Grid.Row="0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <RadioButton x:Name="DecRB" Content="Decimal number" Margin="0,0,6,0" IsChecked="True" Checked="TypeModeRBChecked"/>
+                    <RadioButton x:Name="DualRB" Content="Dual number" Margin="6,0,0,0" Checked="TypeModeRBChecked"/>
+                </StackPanel>
+                <TextBox Header="Input" InputScope="Number" PlaceholderText="Number input" x:Name="InputTBx" Margin="0,12,0,0" TextChanged="InputTBx_TextChanged" KeyDown="InputTBx_KeyDown"/>
+                <TextBlock Text="False input type" Foreground="Red" Style="{StaticResource CaptionTextBlockStyle}" x:Name="InputFailureTB" Visibility="Collapsed"/>
+                <TextBlock Text="Dual number too long" Foreground="Red" Style="{StaticResource CaptionTextBlockStyle}" x:Name="TooLongTB" Visibility="Collapsed"/>
+                <TextBlock Text="Dual number too short" Foreground="Red" Style="{StaticResource CaptionTextBlockStyle}" x:Name="TooShortTB" Visibility="Collapsed"/>
+                <Button HorizontalAlignment="Stretch" Content="Convert" x:Name="ConvertBtn" Margin="0,12,0,0" Click="ConvertBtn_Click" IsEnabled="False"/>
             </StackPanel>
-            <TextBox Header="Input" InputScope="Number" PlaceholderText="Number input" x:Name="InputTBx" Margin="0,12,0,0" TextChanged="InputTBx_TextChanged" KeyDown="InputTBx_KeyDown"/>
-            <TextBlock Text="False input type" Foreground="Red" Style="{StaticResource CaptionTextBlockStyle}" x:Name="InputFailureTB" Visibility="Collapsed"/>
-            <TextBlock Text="Dual number too long" Foreground="Red" Style="{StaticResource CaptionTextBlockStyle}" x:Name="TooLongTB" Visibility="Collapsed"/>
-            <TextBlock Text="Dual number too short" Foreground="Red" Style="{StaticResource CaptionTextBlockStyle}" x:Name="TooShortTB" Visibility="Collapsed"/>
-            <Button HorizontalAlignment="Stretch" Content="Convert" x:Name="ConvertBtn" Margin="0,12,0,0" Click="ConvertBtn_Click" IsEnabled="False"/>
-            <TextBlock Text="Output" Margin="0,12,0,6"/>
-            <TextBlock x:Name="OutputTB" Text="Nothing to show" Style="{StaticResource BaseTextBlockStyle}" IsTextSelectionEnabled="True"/>
-        </StackPanel>
+            <ScrollViewer Grid.Row="1" HorizontalContentAlignment="Left" Margin="12,0,0,12" HorizontalAlignment="Stretch" VerticalContentAlignment="Top" VerticalAlignment="Top" VerticalScrollBarVisibility="Visible">
+                <ScrollViewer.TopHeader>
+                    <Grid>
+                        <TextBlock Text="Output" x:Name="OutputHeader" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,0,0,6"/>
+                    </Grid>
+                </ScrollViewer.TopHeader>
+                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="OutputTB" Text="Nothing to show" Style="{StaticResource BaseTextBlockStyle}" IsTextSelectionEnabled="True"/>
+            </ScrollViewer>
+            <Border Background="{Binding ElementName=MPage, Path=Background}" Height="24" Grid.Row="1" VerticalAlignment="Top" Margin="0,0,16,0"/>
+            <TextBlock Text="Output" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,0,0,6" Grid.Row="1"/>
+        </Grid>
+        <controls:Expander HorizontalAlignment="Left" Header="History" ExpandDirection="Right">
+            <Rectangle Fill="Pink" Width="250" Height="125"/>
+        </controls:Expander>
+        <controls:Expander HorizontalAlignment="Right" Header="Settings" ExpandDirection="Left">
+            <Rectangle Fill="Blue" Width="250" Height="125"/>
+        </controls:Expander>
     </Grid>
 </Page>
